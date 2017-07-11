@@ -1,7 +1,7 @@
 #!/bin/bash
 # Sample usage is as follows;
 # ./signapk myapp.apk debug.keystore android androiddebugkey
-# 
+#
 # param1, APK file: Calculator_debug.apk
 # param2, keystore location: ~/.android/debug.keystore
 # param3, key storepass: android
@@ -18,7 +18,7 @@ ALIAS="${4:-androiddebugkey}"
 
 # get the filename
 APK_BASENAME=$(basename $APK)
-SIGNED_APK="signed_"$APK_BASENAME
+SIGNED_APK=$APK_BASENAME
 
 #debug
 echo param1 $APK
@@ -35,4 +35,4 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $KEYSTORE -stor
 jarsigner -verify $APK
 
 #zipalign
-zipalign -v 4 $APK $SIGNED_APK 
+zipalign -v 4 $APK $SIGNED_APK

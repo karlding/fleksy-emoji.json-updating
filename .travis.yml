@@ -1,0 +1,30 @@
+language: android
+
+android:
+  components:
+    - build-tools-23.0.1
+
+deploy:
+  provider: releases
+  api_key:
+    secure: pyoRRcmqzaczMl4zOmOfqUfFdCOrVLuZ2AA3WaPAxcmkJCQd80LASsB0K9eml++osV5M1rOIEgpDvczurvfts50XZpC/q/wq0U7ShbgncAvBaPsw/xD347aQQf4lpl3paynJxpS2ayaMuLcHlIVTxKS4FrR4fyE/Cyo3MyH+PAyw7kfQCG5Ilm1aG3kKBGbSnGzsx0eFjtzJg+BhP9JJOJsb1lMjQyGb29T6UOet5uzPhBK9uVnz/pLxn3Wk/58bLYYtTaEwuvejz3UqIlSu+Zxqzgg33nal2WkRKtD3/ndvsLcy7tCPHSbU3vQ3QOwpcyn9HI527NTe00FqW7H28JEDPKAOE6S5y4zAPmGOk9XvBBohUFpDB75f+rrCy/f/1YsG1NQp97JYoF7ZKK9RybqA/rNCd2ogUpOa/66eO4C/De+3fDJVFt8WzigwmgHaqub4/iGI+99jjjNe7ubpD3R347RazzuqJyVMg+3o/oA+p+L1Ks68ZeG0v8koAoV/3AkG0dX6sxQLx/OwlCNkcdPx88Ql23QwJPWoOiO/UraRpYgFcJ5ZqlKcOd/ZJHlINfsqmRH7A8/FIzKof+N9GxYfAWzZAEPNxcf/pdItboLGwhKsYO8g1sfJWKHl6HT9y7i94K9x/OSGc0qgzeVpm0s9cMUuby7JkSyUTwNLdBY=
+  file:
+    - "com.syntellia.fleksy.keyboard_8.3.2-394_minAPI16(armeabi,armeabi-v7a)(nodpi).apk"
+  on:
+    tags: true
+    repo: karlding/fleksy-emojis.json-updating
+
+before_script:
+-  export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH
+- keytool -genkey -v -keystore debug.keystore -alias AndroidDebugKey -keyalg RSA -keysize
+  2048 -validity 1 -storepass android -keypass android -dname "cn=TEST, ou=TEST, o=TEST,
+  c=TE"
+- cp "apk/com.syntellia.fleksy.keyboard_8.3.2-394_minAPI16(armeabi,armeabi-v7a)(nodpi).apk"
+  out/
+- zip "out/com.syntellia.fleksy.keyboard_8.3.2-394_minAPI16(armeabi,armeabi-v7a)(nodpi).apk"
+  assets/emojis.json
+
+script:
+- ./bin/signapk.sh "out/com.syntellia.fleksy.keyboard_8.3.2-394_minAPI16(armeabi,armeabi-v7a)(nodpi).apk"
+  debug.keystore android AndroidDebugKey
+
