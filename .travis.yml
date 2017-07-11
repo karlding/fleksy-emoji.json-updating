@@ -15,7 +15,7 @@ deploy:
     repo: karlding/fleksy-emojis.json-updating
 
 before_script:
--  export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH
+- export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH
 - keytool -genkey -v -keystore debug.keystore -alias AndroidDebugKey -keyalg RSA -keysize
   2048 -validity 1 -storepass android -keypass android -dname "cn=TEST, ou=TEST, o=TEST,
   c=TE"
